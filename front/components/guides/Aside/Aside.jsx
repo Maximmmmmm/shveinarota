@@ -39,7 +39,6 @@ const Aside = ({ categories }) => {
     setActiveLink(newActiveLink);
   }, [urlId, categories]);
 
-
   // Открываем ту категорию, где находится активная подкатегория
   useEffect(() => {
     if (activeLink) {
