@@ -24,8 +24,9 @@ const Aside = ({ categories }) => {
   // Определяем активную ссылку по URL или по первой подкатегории
   useEffect(() => {
     let newActiveLink = null;
-    if (urlId && !isNaN(urlId)) {
-      newActiveLink = urlId;
+
+    if (urlId) {
+      newActiveLink = urlId; // Не проверяем на число
     } else if (categories.length > 0) {
       for (const category of categories) {
         if (category.subcategories.length > 0) {
@@ -34,8 +35,10 @@ const Aside = ({ categories }) => {
         }
       }
     }
+
     setActiveLink(newActiveLink);
   }, [urlId, categories]);
+
 
   // Открываем ту категорию, где находится активная подкатегория
   useEffect(() => {
@@ -97,14 +100,41 @@ const Aside = ({ categories }) => {
 
       {/* Контейнер с прокруткой */}
       <div className="aside-content" ref={asideContentRef}>
-        <div className="aside__heading heading">
-          <Link onClick={() => closeAsideOnClick()} href="/guides/main" className="heading__title">Головна</Link>
-          <ul className="heading__body">
-            <li><Link onClick={() => closeAsideOnClick()} className="spoller__link" href="/guides/cybercomplect">Кібернабір для пошиття</Link></li>
-            <li><Link onClick={() => closeAsideOnClick()} className="spoller__link" href="/guides/cybercomplect">Самостійне пошиття</Link></li>
-            <li><Link onClick={() => closeAsideOnClick()} className="spoller__link" href="/guides/cybercomplect">Локальний воркшоп</Link></li>
-          </ul>
-        </div>
+        <Spoller
+          title={"Навч. центр"}
+          isActiveCategory={true}
+        >
+          <Link onClick={() => {
+            setActiveLink("main");
+            closeAsideOnClick();
+          }}
+            className={`spoller__link ${activeLink === "main" ? "active" : ""}`} href="/guides/main">Головна</Link>
+          <Link
+            onClick={() => {
+              setActiveLink("cybercomplects");
+              closeAsideOnClick();
+            }}
+            className={`spoller__link ${activeLink === "cybercomplects" ? "active" : ""}`}
+            href="/guides/cybercomplects"
+          >
+            Кібернабір для пошиття
+          </Link>
+          <Link onClick={() => closeAsideOnClick()} className="spoller__link" href="/guides/workshops">Самостійне пошиття</Link>
+          <Link onClick={() => {
+            setActiveLink("workshops");
+            closeAsideOnClick()
+          }} className={`spoller__link ${activeLink === "workshops" ? "active" : ""}`} href="/guides/workshops">Локальний воркшоп</Link>
+          <Link
+            onClick={() => {
+              setActiveLink("questions");
+              closeAsideOnClick();
+            }}
+            className={`spoller__link ${activeLink === "questions" ? "active" : ""}`}
+            href="/questions"
+          >
+            Часті питання
+          </Link>
+        </Spoller>
         {categories.map((category) => {
           const isActiveCategory = category.subcategories.some(
             (sub) => sub.id == activeLink
@@ -121,7 +151,7 @@ const Aside = ({ categories }) => {
                   key={sub.id}
                   href={`/guides/${sub.subcategory_en.toLowerCase()}/${sub.id}`}
                   className={`spoller__link ${activeLink == sub.id ? "active" : ""}`}
-                  onClick={() => {setActiveLink(sub.id); closeAsideOnClick()}}
+                  onClick={() => { setActiveLink(sub.id); closeAsideOnClick() }}
                   // Привязываем ref только к активной ссылке
                   ref={activeLink == sub.id ? activeLinkRef : null}
                   onMouseEnter={() => {

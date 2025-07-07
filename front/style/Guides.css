@@ -94,6 +94,7 @@
     text-shadow: 3.657px 3.41px 0px rgba(0, 0, 0, 0.63);
     position: relative;
     z-index: 2;
+   
 }
 
 .header-guides__subtitle {
@@ -103,6 +104,7 @@
     max-width: 500px;
     position: relative;
     z-index: 2;
+  
 }
 
 .header-guides__container {
@@ -112,16 +114,48 @@
     position: relative;
 }
 
+.stage-wrapper {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: 0.4s;
+}
+
+.stage-wrapper.visible {
+  opacity: 1;
+}
+
+
 .stage {
     font-family: 'cheque';
     font-size: 559px;
-    opacity: 0.29;
+    opacity: 0.1;
     position: absolute;
     top: 50%;
     right: 0;
     transform: translate(0px, -50%);
     user-select: none;
 }
+
+
+.header-guides__title,
+.header-guides__subtitle {
+  opacity: 0;
+
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.header-guides__title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header-guides__subtitle.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+
 
 @media (max-width: 892px) {
     .stage {
@@ -156,6 +190,28 @@
         display: none;
     }
 }
+
+@keyframes fadeInUpHeader {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-guides__title {
+    /* Остальные стили уже есть */
+    animation: fadeInUp 1s ease forwards;
+}
+
+.header-guides__subtitle {
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
 
 .cards-guides {
     background-color: #45464c;
@@ -192,6 +248,9 @@
     box-shadow: 0px 0px 29.26px 8.74px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 @media (max-width: 936px) {
@@ -203,6 +262,17 @@
     .card-guides {
         max-width: none;
     }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card-guides__body {
@@ -279,25 +349,51 @@
     padding: 200px 15px;
     margin: 0 auto;
     position: relative;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 1s;
+    opacity: 0;
+}
+
+.card-guides.visible{
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .contacts-guides__body {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    align-items: center;
+    gap: 80px;
     grid-auto-flow: column;
     position: relative;
     z-index: 2;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition-delay: 0.2s;
+}
+
+.contacts-guides__body.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contacts-guides__title {
     font-family: "HelveticaNeue";
     font-size: 58px;
     letter-spacing: 0.2;
-    margin: 0px 0px 25px 0px;
+    margin: 0px 0px 20px 0px;
     text-shadow: 3.657px 3.41px 0px rgba(0, 0, 0, 0.63);
     position: relative;
     z-index: 2;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.contacts-guides__title.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contacts-guides__text {
@@ -314,11 +410,181 @@
     color: rgb(70, 130, 180);
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .column-guides:not(:last-child) {
-    
+    margin: 0px 0px 15px 0px;
 }
 
 .column-guides__title {
     font-family: 'Caviar Dreams Bold';
+    font-size: 32px;
+    position: relative;
+    margin: 0px 0px 10px 0px;
+}
+
+.column-guides__title::before {
+    content: "";
+    display: block;
+    width: 200px;
+    height: 3px;
+    background-color: #000;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.column-guides__link {
+    font-family: 'Caviar Dreams Bold';
+    font-size: 22px;
+    color: rgb(70, 130, 180);
+    display: block;
+}
+
+.column-guides__link:not(:last-child) {
+    margin: 0px 0px 10px 0px;
+}
+
+@media (max-width: 894px) {
+    .contacts-guides__container {
+        padding: 100px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contacts-guides__container {
+        padding: 60px 15px;
+    }
+
+    .contacts-guides__title {
+        font-size: 36px;
+    }
+
+    .contacts-guides__body {
+        display: block;
+    }
+
+    .contacts-guides__text {
+        max-width: none;
+        margin: 0px 0px 40px 0px;
+    }
+}
+
+/*===========================================================================*/
+.workshops-wrapper {
+    max-width: 1170px;
+    padding: 0 15px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #222;
+}
+
+.title {
+    text-align: left;
+    margin: 30px auto;
+    font-family: 'Intro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 74px;
+    letter-spacing: -0.08px;
+    color: #000000;
+    text-shadow: 4px 3px 0.3px rgba(0, 0, 0, 0.25);
+}
+
+.section {
+    border-top: 2px solid #000;
+    padding: 30px 0;
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-family: 'Intro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #000000;
+    text-shadow: 5px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-bottom: 25px;
+}
+
+.center-title {
+    text-align: center;
+}
+
+.left-title {
+    text-align: left;
+    margin-left: 50px;
+}
+
+.right-title {
+    text-align: right;
+    margin-right: 20px;
+}
+
+.section-with-image {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: nowrap;
+    /* 👈 ключове! */
+}
+
+.section-image {
+    flex-shrink: 0;
+    max-width: 100%;
+    height: auto;
+}
+
+.section-text {
+    margin: 0 auto;
+    font-family: 'Caviar Dreams Bold';
     font-size: 26px;
+    font-weight: normal;
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
+}
+
+.dots {
+    padding-left: 20px;
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+.text {
+    font-family: 'Caviar Dreams Bold';
+    font-size: 26px;
+    font-weight: normal;
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
+}
+
+.li {
+    margin-bottom: 5px;
+    font-family: 'Caviar Dreams Bold';
+    font-size: 26px;
+    font-weight: normal;
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
+}
+
+.text-list {
+    padding: 0px 0px 0px 30px;
+}
+
+.text-list li::before {
+    content: "";
+    display: block;
+    
 }
