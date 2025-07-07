@@ -8,7 +8,7 @@ import Link from "next/link";
 import DatabaseItem from "$component/dashboard/DatabaseItem/DatabaseItem";
 import { useEffect, useRef, useState } from "react";
 import { getData } from 'api';
-import axios from 'axios';
+import axios from 'axios'; 
 
 
 export default function CardsPage() {

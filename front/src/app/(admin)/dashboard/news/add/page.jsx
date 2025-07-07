@@ -1,12 +1,13 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import { useEffect, useState, useRef } from "react";
 import "$style/bootstrap.min.css";
 import "$style/admin/Admin.css";
 import { getData, postDataJson } from "api";
 import ImageInput from "$component/dashboard/ImageInput/ImageInput";
 import Alert from "$component/dashboard/Alert/Alert";
-import Bootstrap from "$component/guides/Bootstrap/Bootstrap";
+const Bootstrap = dynamic(() => import('$component/guides/Bootstrap/Bootstrap'), { ssr: false });
 
 function parseChildren(nodeList) {
   const children = [];
@@ -22,7 +23,7 @@ function parseChildren(nodeList) {
       inner.forEach(seg => {
         children.push({ text: seg.text, bold: bold || seg.bold, italic: italic || seg.italic });
       });
-    }
+    } document
   });
   return children;
 }

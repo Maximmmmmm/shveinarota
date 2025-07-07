@@ -1,10 +1,10 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "next/navigation";
 import "$style/bootstrap.min.css";
 import "$style/admin/Admin.css";
-import dynamic from 'next/dynamic';
 const Bootstrap = dynamic(() => import('$component/guides/Bootstrap/Bootstrap'), { ssr: false });
 import Alert from "$component/dashboard/Alert/Alert";
 import { getData, changeJsonData } from "api";
